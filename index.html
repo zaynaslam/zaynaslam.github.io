@@ -6,332 +6,454 @@
     <title>Zayn Aslam - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Three.js library - use specific CDN links for reliability -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="text-scramble.js"></script>
+    <style>
+      @keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+      }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="cyber-panel main-panel" id="main-panel">
-            <div class="header">
-                <div class="logo">
-                    <div class="hexagon"></div>
-                    <span>PORTFOLIO_V1.0</span>
-                </div>
-                <nav class="main-nav">
-                    <ul>
-                        <li class="nav-item" data-target="about">ABOUT</li>
-                        <li class="nav-item" data-target="education">EDUCATION</li>
-                        <li class="nav-item" data-target="experience">EXPERIENCE</li>
-                        <li class="nav-item" data-target="publications">PUBLICATIONS</li>
-                        <li class="nav-item" data-target="awards">AWARDS</li>
-                    </ul>
-                </nav>
+    <!-- Custom desktop cursor -->
+    <div id="desktop-cursor" class="desktop-cursor"></div>
+
+    <!-- Simplified Start Screen -->
+    <div class="start-screen" id="start-screen">
+        <button class="loading-button" id="start-button">
+            <div class="loading-ring"></div>
+            <div class="loading-icon">
+                <i class="fas fa-power-off"></i>
             </div>
-            
-            <!-- About Section -->
-            <section id="about" class="section active-section">
-                <div class="hero-container">
-                    <div class="hero-backdrop"></div>
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-avatar">
-                                <div class="avatar-ring"></div>
-                                <div class="avatar-core"></div>
-                                <canvas class="avatar-visualizer" width="100" height="100"></canvas>
-                            </div>
-                            <h1 class="cyber-glitch interactive-glitch">ZAYN ASLAM</h1>
+        </button>
+        <div class="start-text">
+            <span class="click-text">CLICK TO START</span>
+        </div>
+    </div>
+    
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" id="loading-indicator" style="display:none;">
+        <div class="loading-progress" id="loading-progress"></div>
+    </div>
+    
+    <!-- 3D Room Scene - hidden initially -->
+    <div class="room-scene-container" id="room-scene" style="opacity: 0;"></div>
+    
+    <!-- Screen Static Effect -->
+    <div class="screen-static" id="screen-static"></div>
+    
+    <!-- Add screen effects for realism -->
+    <div class="screen-scanlines" id="screen-scanlines"></div>
+    <div class="screen-glare" id="screen-glare"></div>
+    
+    <!-- Main Interface with computer frame -->
+    <div class="interface-container" id="interface-container">
+        <!-- Computer monitor frame -->
+        <div class="computer-frame">
+            <div class="computer-screen">
+                <!-- System initialization screen that matches the 3D texture -->
+                <div class="system-init-screen" id="system-init-screen">
+                    <!-- Content dynamically created in JS to match exactly -->
+                </div>
+                
+                <!-- Main panel content -->
+                <div class="cyber-panel main-panel" id="main-panel">
+                    <div class="header">
+                        <div class="logo">
+                            <div class="hexagon"></div>
+                            <span>PORTFOLIO_V1.0</span>
                         </div>
-                        <div class="terminal-container">
-                            <div class="terminal-header">
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-title">profile.sys</span>
-                            </div>
-                            <div class="terminal-text">
-                                <p>> Initializing profile data...</p>
-                                <p>> Access granted to personal information</p>
-                                <p>> Incoming freshman studying Statistics & Data Science at Carnegie Mellon University</p>
-                                <p>> Specializing in mathematics, economics, and informatics</p>
-                                <p>> Welcome to my digital portfolio</p>
-                                <p class="blinking-cursor">_</p>
+                        <nav class="main-nav">
+                            <ul>
+                                <li class="nav-item" data-target="about">ABOUT</li>
+                                <li class="nav-item" data-target="education">EDUCATION</li>
+                                <li class="nav-item" data-target="experience">EXPERIENCE</li>
+                                <li class="nav-item" data-target="publications">PUBLICATIONS</li>
+                                <li class="nav-item" data-target="awards">AWARDS</li>
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <!-- About Section -->
+                    <section id="about" class="section active-section">
+                        <div class="hero-container">
+                            <div class="hero-backdrop"></div>
+                            <div class="profile-card">
+                                <div class="profile-header">
+                                    <div class="profile-avatar">
+                                        <div class="avatar-ring"></div>
+                                        <div class="avatar-core"></div>
+                                        <canvas class="avatar-visualizer" width="100" height="100"></canvas>
+                                    </div>
+                                    <h1 class="cyber-glitch interactive-glitch">ZAYN&nbsp;ASLAM</h1>
+                                </div>
+                                <div class="terminal-container">
+                                    <div class="terminal-header">
+                                        <span class="terminal-dot"></span>
+                                        <span class="terminal-dot"></span>
+                                        <span class="terminal-dot"></span>
+                                        <span class="terminal-title">profile.sys</span>
+                                    </div>
+                                    <div class="terminal-text">
+                                        <p>> Initializing profile data...</p>
+                                        <p>> Access granted to personal information</p>
+                                        <p>> Incoming freshman studying Statistics & Data Science at Carnegie Mellon University</p>
+                                        <p>> Specializing in mathematics, economics, and informatics</p>
+                                        <p>> Welcome to my digital portfolio (click my name for a surprise)!</p>
+                                        <p class="blinking-cursor">_</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="skills-meter">
+                                    <div class="skill-bar" data-skill="Mathematics">
+                                        <span class="skill-label">Mathematics</span>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar" data-skill="Economics">
+                                        <span class="skill-label">Economics</span>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar" data-skill="Informatics">
+                                        <span class="skill-label">Informatics</span>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar" data-skill="Data Science">
+                                        <span class="skill-label">Data Science</span>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="skills-meter">
-                            <div class="skill-bar" data-skill="Mathematics">
-                                <span class="skill-label">Mathematics</span>
-                                <div class="skill-progress">
-                                    <div class="skill-fill" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-bar" data-skill="Economics">
-                                <span class="skill-label">Economics</span>
-                                <div class="skill-progress">
-                                    <div class="skill-fill" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-bar" data-skill="Informatics">
-                                <span class="skill-label">Informatics</span>
-                                <div class="skill-progress">
-                                    <div class="skill-fill" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-bar" data-skill="Data Science">
-                                <span class="skill-label">Data Science</span>
-                                <div class="skill-progress">
-                                    <div class="skill-fill" style="width: 80%"></div>
-                                </div>
-                            </div>
+                        <div class="social-links">
+                            <a href="https://medium.com/@zayn.aslam" target="_blank" class="social-link">
+                                <i class="fab fa-medium"></i>
+                                <span>Blog</span>
+                            </a>
+                            <a href="https://pk.linkedin.com/in/zayn-aslam-319327325" target="_blank" class="social-link">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                            <!-- Gmail contact button that matches other social links -->
+                            <a href="mailto:zayn@cmu.edu" class="social-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>Establish Connection</span>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="social-links">
-                    <a href="https://medium.com/@zayn.aslam" target="_blank" class="social-link">
-                        <i class="fab fa-medium"></i>
-                        <span>Blog</span>
-                    </a>
-                    <a href="https://pk.linkedin.com/in/zayn-aslam-319327325" target="_blank" class="social-link">
-                        <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                </div>
 
-                <div class="pathways-container">
-                    <div class="pathway neo-pathway" data-target="education">
-                        <div class="pathway-border"></div>
-                        <div class="pathway-glow"></div>
-                        <div class="pathway-content">
-                            <div class="node">
-                                <i class="fas fa-graduation-cap"></i>
+                        <div class="pathways-container">
+                            <div class="pathway neo-pathway" data-target="education">
+                                <div class="pathway-border"></div>
+                                <div class="pathway-glow"></div>
+                                <div class="pathway-content">
+                                    <div class="node">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <span>EDUCATION</span>
+                                </div>
                             </div>
-                            <span>EDUCATION</span>
-                        </div>
-                    </div>
-                    <div class="pathway neo-pathway" data-target="experience">
-                        <div class="pathway-border"></div>
-                        <div class="pathway-glow"></div>
-                        <div class="pathway-content">
-                            <div class="node">
-                                <i class="fas fa-briefcase"></i>
+                            <div class="pathway neo-pathway" data-target="experience">
+                                <div class="pathway-border"></div>
+                                <div class="pathway-glow"></div>
+                                <div class="pathway-content">
+                                    <div class="node">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <span>EXPERIENCE</span>
+                                </div>
                             </div>
-                            <span>EXPERIENCE</span>
-                        </div>
-                    </div>
-                    <div class="pathway neo-pathway" data-target="awards">
-                        <div class="pathway-border"></div>
-                        <div class="pathway-glow"></div>
-                        <div class="pathway-content">
-                            <div class="node">
-                                <i class="fas fa-trophy"></i>
+                            <div class="pathway neo-pathway" data-target="awards">
+                                <div class="pathway-border"></div>
+                                <div class="pathway-glow"></div>
+                                <div class="pathway-content">
+                                    <div class="node">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <span>AWARDS & HONOURS</span>
+                                </div>
                             </div>
-                            <span>AWARDS & HONOURS</span>
                         </div>
-                    </div>
+                    </section>
+                    
+                    <!-- Education Section -->
+                    <section id="education" class="section">
+                        <h2 class="cyber-glitch">EDUCATION</h2>
+                        <div class="terminal-text">
+                            <p>> Loading academic credentials...</p>
+                            <p>> Data retrieved successfully</p>
+                        </div>
+                        <div class="edu-timeline">
+                            <div class="edu-item">
+                                <div class="edu-header">
+                                    <div class="school-logo">
+                                        <img src="cmu logo.png" alt="Carnegie Mellon University">
+                                    </div>
+                                    <div class="edu-info">
+                                        <h3>CARNEGIE MELLON UNIVERSITY</h3>
+                                        <p class="degree">Bachelor of Science - BS, Statistics & Data Science</p>
+                                        <p class="year">Aug 2025 - Jul 2029</p>
+                                    </div>
+                                </div>
+                                <p class="description">Incoming freshman at one of the world's leading institutions for computer science, data science, and technology.</p>
+                                <p class="activities">Activities and societies: Incoming freshman</p>
+                            </div>
+                            <div class="edu-item">
+                                <div class="edu-header">
+                                    <div class="school-logo">
+                                        <img src="aitchison logo.png" alt="Aitchison College">
+                                    </div>
+                                    <div class="edu-info">
+                                        <h3>AITCHISON COLLEGE</h3>
+                                        <p class="degree">4A* & 7A in IGCSEs. 1560/1600 in SAT. Awarded College Academic Blazer.</p>
+                                        <p class="year">Sep 2012 - Jun 2025</p>
+                                    </div>
+                                </div>
+                                <p class="activities">Activities and societies:</p>
+                                <ul class="activities-list">
+                                    <li>College Prefect, 2024-25</li>
+                                    <li>Leader of the Academic Portfolio, 2024-25</li>
+                                    <li>Member Student Council, 2021-25</li>
+                                    <li>Batch Representative of Computing Society, 2023-25</li>
+                                    <li>Varsity Water Polo, 2023-25</li>
+                                </ul>
+                                <p class="description">Managed internal affairs, leading a group of 1000+. Acted as liaison between administration and student body.</p>
+                            </div>
+                        </div>
+                        <div class="back-btn" data-target="about">
+                            <i class="fas fa-arrow-left"></i> BACK TO MAIN
+                        </div>
+                    </section>
+                    
+                    <!-- Experience Section -->
+                    <section id="experience" class="section">
+                        <h2 class="cyber-glitch">EXPERIENCE</h2>
+                        <div class="terminal-text">
+                            <p>> Scanning professional records...</p>
+                            <p>> Experience database unlocked</p>
+                        </div>
+                        <div class="exp-grid">
+                            <div class="exp-item">
+                                <div class="exp-icon">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <h3>SHAMS ENERGY</h3>
+                                <p class="position">Internship</p>
+                                <p class="year">Aug 2024 - Sep 2024 · 2 mos</p>
+                                <p class="description">Energy sector experience focusing on renewable energy solutions.</p>
+                            </div>
+                            <div class="exp-item">
+                                <div class="exp-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h3>BALI MEMORIAL TRUST</h3>
+                                <p class="position">Teaching Assistant</p>
+                                <p class="year">Jan 2015 - Jan 2019 · 4 yrs</p>
+                                <p class="description">Taught female children mathematics and english. Alongside this, I regularly volunteered for charity and food drives and participated in activities.</p>
+                            </div>
+                            <div class="exp-item">
+                                <div class="exp-icon">
+                                    <i class="fas fa-paw"></i>
+                                </div>
+                                <h3>TODD'S WELFARE SOCIETY</h3>
+                                <p class="position">Volunteer</p>
+                                <p class="year">Jan 2023 - Present</p>
+                                <p class="description">Regularly volunteered to help with the dogs, doing everyday tasks such as bathing, trimming nails and walks. Focused on animal welfare and care.</p>
+                            </div>
+                        </div>
+                        <div class="back-btn" data-target="about">
+                            <i class="fas fa-arrow-left"></i> BACK TO MAIN
+                        </div>
+                    </section>
+                    
+                    <!-- Publications Section -->
+                    <section id="publications" class="section">
+                        <h2 class="cyber-glitch">PUBLICATIONS</h2>
+                        <div class="terminal-text">
+                            <p>> Retrieving published works...</p>
+                            <p>> Publications loaded</p>
+                        </div>
+                        <div class="publications-grid">
+                            <div class="publication-item">
+                                <h3><a href="https://www.geo.tv/latest/578908-expulsion-of-afghan-refugees-from-pakistan-sparks-human-rights-concern" target="_blank">Expulsion of Afghan refugees from Pakistan sparks human rights concern</a></h3>
+                                <p class="publisher">Geo News · Dec 10, 2024</p>
+                            </div>
+                            <div class="publication-item">
+                                <h3><a href="https://medium.com/@zayn.aslam/writing-carbon-credits-effect-on-the-economy-and-environment-1f85429757ac" target="_blank">Carbon Credits: Effect On The Economy and Environment</a></h3>
+                                <p class="publisher">Medium · Feb 15, 2024</p>
+                            </div>
+                            <div class="publication-item">
+                                <h3><a href="https://pakistandebtclock.com/" target="_blank">Pakistan National Debt Clock Website</a></h3>
+                                <p class="publisher">Personal Project</p>
+                            </div>
+                        </div>
+                        <div class="back-btn" data-target="about">
+                            <i class="fas fa-arrow-left"></i> BACK TO MAIN
+                        </div>
+                    </section>
+                    
+                    <!-- Awards Section -->
+                    <section id="awards" class="section">
+                        <h2 class="cyber-glitch">AWARDS & HONOURS</h2>
+                        <div class="terminal-text">
+                            <p>> Accessing achievements database...</p>
+                            <p>> Recognition records retrieved</p>
+                        </div>
+                        <div class="awards-categories">
+                            <div class="category" id="economics">
+                                <h3>ECONOMICS</h3>
+                                <div class="awards-list">
+                                    <div class="award-item">
+                                        <h4>INTERNATIONAL ECONOMICS OLYMPIAD</h4>
+                                        <p class="year">July 2024</p>
+                                        <p class="description">Bronze Medal</p>
+                                    </div>
+                                    <div class="award-item">
+                                        <h4>PAKISTAN NATIONAL ECONOMICS TOURNAMENT</h4>
+                                        <p class="year">May 2024</p>
+                                        <p class="description">Gold Medal</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="category featured" id="mathematics">
+                                <h3>MATHEMATICS</h3>
+                                <div class="awards-list">
+                                    <div class="award-item">
+                                        <h4>STANFORD MATH TOURNAMENT</h4>
+                                        <p class="year">April 2024</p>
+                                        <p class="description">Honourable Mention (Calculus) and Distinguished Honourable Mention (Algebra)</p>
+                                    </div>
+                                    <div class="award-item">
+                                        <h4>UNIVERSITY OF HOUSTON MATH CONTEST</h4>
+                                        <p class="year">February 2025</p>
+                                        <p class="description">Awarded $300 for placing 1st in Physics, 1st in Calculus</p>
+                                    </div>
+                                    <div class="award-item">
+                                        <h4>INTERNATIONAL TOURNAMENT FOR YOUNG MATHEMATICIANS</h4>
+                                        <p class="year">November 2023</p>
+                                        <p class="description">Honourable Mention</p>
+                                    </div>
+                                    <div class="award-item">
+                                        <h4>PURPLE COMET MATH MEET</h4>
+                                        <p class="year">April 2025</p>
+                                        <p class="description">1st Place in Pakistan</p>
+                                    </div>
+                                    <div class="award-item">
+                                        <h4>PAKISTAN MATHEMATICAL MODELING CONTEST</h4>
+                                        <p class="year">April 2024</p>
+                                        <p class="description">Winner & chosen for Team Pakistan - Awarded successful in international round</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="category" id="informatics">
+                                <h3>INFORMATICS</h3>
+                                <div class="awards-list">
+                                    <div class="award-item">
+                                        <h4>BRAIN OF AITCHISON</h4>
+                                        <p class="year">January 2025</p>
+                                        <p class="description">Awarded for being 1 of 1000+</p>
+                                    </div>
+                                    <div class="award-item">
+                                        <h4>CANADIAN COMPUTING COMPETITION</h4>
+                                        <p class="year">January 2024</p>
+                                        <p class="description">Distinction - University of Waterloo</p>
+                                    </div>
+                                    <div class="award-item">
+                                        <h4>CODING AT CARIBOU CONTESTS</h4>
+                                        <p class="year">2024</p>
+                                        <p class="description">1st in the world</p>
+                                    </div>
+                                    <div class="award-item">
+                                        <h4>INTERNATIONAL BEBRAS INFORMATICS CONTEST</h4>
+                                        <p class="year">2023</p>
+                                        <p class="description">4th in Pakistan</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="back-btn" data-target="about">
+                            <i class="fas fa-arrow-left"></i> BACK TO MAIN
+                        </div>
+                    </section>
                 </div>
-            </section>
+            </div>
             
-            <!-- Education Section -->
-            <section id="education" class="section">
-                <h2 class="cyber-glitch">EDUCATION</h2>
-                <div class="terminal-text">
-                    <p>> Loading academic credentials...</p>
-                    <p>> Data retrieved successfully</p>
-                </div>
-                <div class="edu-timeline">
-                    <div class="edu-item">
-                        <div class="edu-header">
-                            <div class="school-logo">
-                                <img src="cmu logo.png" alt="Carnegie Mellon University">
-                            </div>
-                            <div class="edu-info">
-                                <h3>CARNEGIE MELLON UNIVERSITY</h3>
-                                <p class="degree">Bachelor of Science - BS, Statistics & Data Science</p>
-                                <p class="year">Aug 2025 - Jul 2029</p>
-                            </div>
-                        </div>
-                        <p class="description">Incoming freshman at one of the world's leading institutions for computer science, data science, and technology.</p>
-                        <p class="activities">Activities and societies: Incoming freshman</p>
-                    </div>
-                    <div class="edu-item">
-                        <div class="edu-header">
-                            <div class="school-logo">
-                                <img src="aitchison logo.png" alt="Aitchison College">
-                            </div>
-                            <div class="edu-info">
-                                <h3>AITCHISON COLLEGE</h3>
-                                <p class="degree">4A* & 7A in IGCSEs. 1560/1600 in SAT. Awarded College Academic Blazer.</p>
-                                <p class="year">Sep 2012 - Jun 2025</p>
-                            </div>
-                        </div>
-                        <p class="activities">Activities and societies:</p>
-                        <ul class="activities-list">
-                            <li>College Prefect, 2024-25</li>
-                            <li>Leader of the Academic Portfolio, 2024-25</li>
-                            <li>Member Student Council, 2021-25</li>
-                            <li>Batch Representative of Computing Society, 2023-25</li>
-                            <li>Varsity Water Polo, 2023-25</li>
-                        </ul>
-                        <p class="description">Managed internal affairs, leading a group of 1000+. Acted as liaison between administration and student body.</p>
-                    </div>
-                </div>
-                <div class="back-btn" data-target="about">
-                    <i class="fas fa-arrow-left"></i> BACK TO MAIN
-                </div>
-            </section>
-            
-            <!-- Experience Section -->
-            <section id="experience" class="section">
-                <h2 class="cyber-glitch">EXPERIENCE</h2>
-                <div class="terminal-text">
-                    <p>> Scanning professional records...</p>
-                    <p>> Experience database unlocked</p>
-                </div>
-                <div class="exp-grid">
-                    <div class="exp-item">
-                        <div class="exp-icon">
-                            <i class="fas fa-sun"></i>
-                        </div>
-                        <h3>SHAMS ENERGY</h3>
-                        <p class="position">Internship</p>
-                        <p class="year">Aug 2024 - Sep 2024 · 2 mos</p>
-                        <p class="description">Energy sector experience focusing on renewable energy solutions.</p>
-                    </div>
-                    <div class="exp-item">
-                        <div class="exp-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h3>BALI MEMORIAL TRUST</h3>
-                        <p class="position">Teaching Assistant</p>
-                        <p class="year">Jan 2015 - Jan 2019 · 4 yrs</p>
-                        <p class="description">Taught female children mathematics and english. Alongside this, I regularly volunteered for charity and food drives and participated in activities.</p>
-                    </div>
-                    <div class="exp-item">
-                        <div class="exp-icon">
-                            <i class="fas fa-paw"></i>
-                        </div>
-                        <h3>TODD'S WELFARE SOCIETY</h3>
-                        <p class="position">Volunteer</p>
-                        <p class="year">Jan 2023 - Present</p>
-                        <p class="description">Regularly volunteered to help with the dogs, doing everyday tasks such as bathing, trimming nails and walks. Focused on animal welfare and care.</p>
-                    </div>
-                </div>
-                <div class="back-btn" data-target="about">
-                    <i class="fas fa-arrow-left"></i> BACK TO MAIN
-                </div>
-            </section>
-            
-            <!-- Publications Section -->
-            <section id="publications" class="section">
-                <h2 class="cyber-glitch">PUBLICATIONS</h2>
-                <div class="terminal-text">
-                    <p>> Retrieving published works...</p>
-                    <p>> Publications loaded</p>
-                </div>
-                <div class="publications-grid">
-                    <div class="publication-item">
-                        <h3><a href="https://www.geo.tv/latest/578908-expulsion-of-afghan-refugees-from-pakistan-sparks-human-rights-concern" target="_blank">Expulsion of Afghan refugees from Pakistan sparks human rights concern</a></h3>
-                        <p class="publisher">Geo News · Dec 10, 2024</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3><a href="https://medium.com/@zayn.aslam/writing-carbon-credits-effect-on-the-economy-and-environment-1f85429757ac" target="_blank">Carbon Credits: Effect On The Economy and Environment</a></h3>
-                        <p class="publisher">Medium · Feb 15, 2024</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3><a href="https://pakistandebtclock.com/" target="_blank">Pakistan National Debt Clock Website</a></h3>
-                        <p class="publisher">Personal Project</p>
-                    </div>
-                </div>
-                <div class="back-btn" data-target="about">
-                    <i class="fas fa-arrow-left"></i> BACK TO MAIN
-                </div>
-            </section>
-            
-            <!-- Awards Section -->
-            <section id="awards" class="section">
-                <h2 class="cyber-glitch">AWARDS & HONOURS</h2>
-                <div class="terminal-text">
-                    <p>> Accessing achievements database...</p>
-                    <p>> Recognition records retrieved</p>
-                </div>
-                <div class="awards-categories">
-                    <div class="category" id="economics">
-                        <h3>ECONOMICS</h3>
-                        <div class="awards-list">
-                            <div class="award-item">
-                                <h4>INTERNATIONAL ECONOMICS OLYMPIAD</h4>
-                                <p class="year">July 2024</p>
-                                <p class="description">Bronze Medal</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>PAKISTAN NATIONAL ECONOMICS TOURNAMENT</h4>
-                                <p class="year">May 2024</p>
-                                <p class="description">Gold Medal</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="category featured" id="mathematics">
-                        <h3>MATHEMATICS</h3>
-                        <div class="awards-list">
-                            <div class="award-item">
-                                <h4>STANFORD MATH TOURNAMENT</h4>
-                                <p class="year">April 2024</p>
-                                <p class="description">Honourable Mention (Calculus) and Distinguished Honourable Mention (Algebra)</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>UNIVERSITY OF HOUSTON MATH CONTEST</h4>
-                                <p class="year">February 2025</p>
-                                <p class="description">Awarded $300 for placing 1st in Physics, 1st in Calculus</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>INTERNATIONAL TOURNAMENT FOR YOUNG MATHEMATICIANS</h4>
-                                <p class="year">November 2023</p>
-                                <p class="description">Honourable Mention</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>PURPLE COMET MATH MEET</h4>
-                                <p class="year">April 2025</p>
-                                <p class="description">1st Place in Pakistan</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>PAKISTAN MATHEMATICAL MODELING CONTEST</h4>
-                                <p class="year">April 2024</p>
-                                <p class="description">Winner & chosen for Team Pakistan - Awarded successful in international round</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="category" id="informatics">
-                        <h3>INFORMATICS</h3>
-                        <div class="awards-list">
-                            <div class="award-item">
-                                <h4>BRAIN OF AITCHISON</h4>
-                                <p class="year">January 2025</p>
-                                <p class="description">Awarded for being 1 of 1000+</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>CANADIAN COMPUTING COMPETITION</h4>
-                                <p class="year">January 2024</p>
-                                <p class="description">Distinction - University of Waterloo</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>CODING AT CARIBOU CONTESTS</h4>
-                                <p class="year">2024</p>
-                                <p class="description">1st in the world</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>INTERNATIONAL BEBRAS INFORMATICS CONTEST</h4>
-                                <p class="year">2023</p>
-                                <p class="description">4th in Pakistan</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="back-btn" data-target="about">
-                    <i class="fas fa-arrow-left"></i> BACK TO MAIN
-                </div>
-            </section>
+            <!-- Monitor base -->
+            <div class="monitor-base"></div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <button class="back-to-room" id="back-to-room"><i class="fas fa-arrow-left"></i> Back to Room</button>
+    <!-- Remove the container div as we're now using the monitor-content -->
+</div>
+
+<!-- Load scripts at the end of body -->
+<script src="script.js"></script>
+<script src="room-scene.js"></script>
+<script src="reality-warp.js"></script>
+<script src="desktop-cursor.js"></script>
+
+<!-- Add back-to-room functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const backButton = document.getElementById('back-to-room');
+        if (backButton) {
+            backButton.addEventListener('click', function() {
+                // Hide interface
+                const interfaceContainer = document.getElementById('interface-container');
+                if (interfaceContainer) {
+                    interfaceContainer.classList.remove('active');
+                }
+                
+                // Show static effect
+                const screenStatic = document.getElementById('screen-static');
+                if (screenStatic) {
+                    screenStatic.classList.add('active');
+                }
+                
+                // Transition back to room
+                setTimeout(function() {
+                    if (interfaceContainer) {
+                        interfaceContainer.style.display = 'none';
+                    }
+                    
+                    const roomScene = document.getElementById('room-scene');
+                    if (roomScene) {
+                        roomScene.classList.remove('hidden');
+                        roomScene.style.display = 'block';
+                        
+                        // Force reflow
+                        void roomScene.offsetWidth;
+                        
+                        roomScene.style.opacity = '1';
+                        
+                        // Hide static after transition
+                        setTimeout(function() {
+                            if (screenStatic) {
+                                screenStatic.classList.remove('active');
+                            }
+                        }, 500);
+                    }
+                }, 500);
+            });
+        }
+    });
+</script>
+
+<!-- Add matrix rain and enhanced name effect -->
+<script src="matrix-rain.js"></script>
+<script src="name-effect.js"></script>
 </body>
 </html>
