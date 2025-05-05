@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Futuristic Portfolio</title>
+    <title>Zayn Aslam - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -20,6 +20,7 @@
                         <li class="nav-item" data-target="about">ABOUT</li>
                         <li class="nav-item" data-target="education">EDUCATION</li>
                         <li class="nav-item" data-target="experience">EXPERIENCE</li>
+                        <li class="nav-item" data-target="publications">PUBLICATIONS</li>
                         <li class="nav-item" data-target="awards">AWARDS</li>
                     </ul>
                 </nav>
@@ -27,27 +28,107 @@
             
             <!-- About Section -->
             <section id="about" class="section active-section">
-                <h1 class="cyber-glitch">JOHN DOE</h1>
-                <div class="terminal-text">
-                    <p>> Initializing profile data...</p>
-                    <p>> Access granted to personal information</p>
-                    <p>> I'm a futuristic tech enthusiast passionate about innovation</p>
-                    <p>> Specializing in mathematics, economics, and informatics</p>
-                    <p>> Welcome to my digital portfolio</p>
-                    <p class="blinking-cursor">_</p>
+                <div class="hero-container">
+                    <div class="hero-backdrop"></div>
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <div class="avatar-ring"></div>
+                                <div class="avatar-core"></div>
+                                <canvas class="avatar-visualizer" width="100" height="100"></canvas>
+                            </div>
+                            <h1 class="cyber-glitch interactive-glitch">ZAYN ASLAM</h1>
+                        </div>
+                        <div class="terminal-container">
+                            <div class="terminal-header">
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-title">profile.sys</span>
+                            </div>
+                            <div class="terminal-text">
+                                <p>> Initializing profile data...</p>
+                                <p>> Access granted to personal information</p>
+                                <p>> Incoming freshman studying Statistics & Data Science at Carnegie Mellon University</p>
+                                <p>> Specializing in mathematics, economics, and informatics</p>
+                                <p>> Welcome to my digital portfolio</p>
+                                <p class="blinking-cursor">_</p>
+                            </div>
+                        </div>
+                        
+                        <div class="skills-meter">
+                            <div class="skill-bar" data-skill="Mathematics">
+                                <span class="skill-label">Mathematics</span>
+                                <div class="skill-progress">
+                                    <div class="skill-fill" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar" data-skill="Economics">
+                                <span class="skill-label">Economics</span>
+                                <div class="skill-progress">
+                                    <div class="skill-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar" data-skill="Informatics">
+                                <span class="skill-label">Informatics</span>
+                                <div class="skill-progress">
+                                    <div class="skill-fill" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar" data-skill="Data Science">
+                                <span class="skill-label">Data Science</span>
+                                <div class="skill-progress">
+                                    <div class="skill-fill" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="social-links">
+                    <a href="https://medium.com/@zayn.aslam" target="_blank" class="social-link">
+                        <i class="fab fa-medium"></i>
+                        <span>Blog</span>
+                    </a>
+                    <a href="https://pk.linkedin.com/in/zayn-aslam-319327325" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                </div>
+
                 <div class="pathways-container">
-                    <div class="pathway" data-target="education">
-                        <div class="node"></div>
-                        <span>EDUCATION</span>
+                    <div class="pathway neo-pathway" data-target="education">
+                        <div class="pathway-border"></div>
+                        <div class="pathway-glow"></div>
+                        <div class="pathway-content">
+                            <div class="node"></div>
+                            <span>EDUCATION</span>
+                        </div>
+                        <div class="path-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
                     </div>
-                    <div class="pathway" data-target="experience">
-                        <div class="node"></div>
-                        <span>VOLUNTEER SERVICE & EXPERIENCE</span>
+                    <div class="pathway neo-pathway" data-target="experience">
+                        <div class="pathway-border"></div>
+                        <div class="pathway-glow"></div>
+                        <div class="pathway-content">
+                            <div class="node"></div>
+                            <span>EXPERIENCE</span>
+                        </div>
+                        <div class="path-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
                     </div>
-                    <div class="pathway" data-target="awards">
-                        <div class="node"></div>
-                        <span>AWARDS & HONOURS</span>
+                    <div class="pathway neo-pathway" data-target="awards">
+                        <div class="pathway-border"></div>
+                        <div class="pathway-glow"></div>
+                        <div class="pathway-content">
+                            <div class="node"></div>
+                            <span>AWARDS & HONOURS</span>
+                        </div>
+                        <div class="path-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -61,16 +142,25 @@
                 </div>
                 <div class="edu-timeline">
                     <div class="edu-item">
-                        <h3>CYBERTECH UNIVERSITY</h3>
-                        <p class="degree">MSc. Advanced Computing Sciences</p>
-                        <p class="year">2020-2022</p>
-                        <p class="description">Specialized in algorithmic theory and quantum computing applications.</p>
+                        <h3>CARNEGIE MELLON UNIVERSITY</h3>
+                        <p class="degree">Bachelor of Science - BS, Statistics & Data Science</p>
+                        <p class="year">Aug 2025 - Jul 2029</p>
+                        <p class="description">Incoming freshman at one of the world's leading institutions for computer science, data science, and technology.</p>
+                        <p class="activities">Activities and societies: Incoming freshman</p>
                     </div>
                     <div class="edu-item">
-                        <h3>DIGITAL INNOVATIONS COLLEGE</h3>
-                        <p class="degree">BSc. Applied Mathematics & Computer Science</p>
-                        <p class="year">2016-2020</p>
-                        <p class="description">Double major with focus on computational mathematics and software development.</p>
+                        <h3>AITCHISON COLLEGE</h3>
+                        <p class="degree">4A* & 7A in IGCSEs. Awarded College Academic Blazer.</p>
+                        <p class="year">Sep 2012 - Jun 2025</p>
+                        <p class="activities">Activities and societies:</p>
+                        <ul class="activities-list">
+                            <li>College Prefect, 2024-25</li>
+                            <li>Leader of the Academic Portfolio, 2024-25</li>
+                            <li>Member Student Council, 2021-25</li>
+                            <li>Batch Representative of Computing Society, 2023-25</li>
+                            <li>Varsity Water Polo, 2023-25</li>
+                        </ul>
+                        <p class="description">Managed internal affairs, leading a group of 1000+. Acted as liaison between administration and student body.</p>
                     </div>
                 </div>
                 <div class="back-btn" data-target="about">
@@ -80,7 +170,7 @@
             
             <!-- Experience Section -->
             <section id="experience" class="section">
-                <h2 class="cyber-glitch">VOLUNTEER SERVICE & EXPERIENCE</h2>
+                <h2 class="cyber-glitch">EXPERIENCE</h2>
                 <div class="terminal-text">
                     <p>> Scanning professional records...</p>
                     <p>> Experience database unlocked</p>
@@ -88,27 +178,30 @@
                 <div class="exp-grid">
                     <div class="exp-item">
                         <div class="exp-icon">
-                            <i class="fas fa-code"></i>
+                            <i class="fas fa-sun"></i>
                         </div>
-                        <h3>COMMUNITY TECH MENTOR</h3>
-                        <p class="year">2021-Present</p>
-                        <p class="description">Volunteer teaching coding skills to underprivileged youth.</p>
+                        <h3>SHAMS ENERGY</h3>
+                        <p class="position">Internship</p>
+                        <p class="year">Aug 2024 - Sep 2024 · 2 mos</p>
+                        <p class="description">Energy sector experience focusing on renewable energy solutions.</p>
                     </div>
                     <div class="exp-item">
                         <div class="exp-icon">
-                            <i class="fas fa-project-diagram"></i>
+                            <i class="fas fa-book"></i>
                         </div>
-                        <h3>ENVIRONMENTAL DATA ANALYSIS</h3>
-                        <p class="year">2019-2021</p>
-                        <p class="description">Volunteer work analyzing climate data for local conservation group.</p>
+                        <h3>BALI MEMORIAL TRUST</h3>
+                        <p class="position">Teaching Assistant</p>
+                        <p class="year">Jan 2015 - Jan 2019 · 4 yrs</p>
+                        <p class="description">Taught female children mathematics and english. Alongside this, I regularly volunteered for charity and food drives and participated in activities.</p>
                     </div>
                     <div class="exp-item">
                         <div class="exp-icon">
-                            <i class="fas fa-robot"></i>
+                            <i class="fas fa-paw"></i>
                         </div>
-                        <h3>ROBOTICS TEAM LEAD</h3>
-                        <p class="year">2018-2020</p>
-                        <p class="description">Led student volunteer robotics team in national competitions.</p>
+                        <h3>TODD'S WELFARE SOCIETY</h3>
+                        <p class="position">Volunteer</p>
+                        <p class="year">Jan 2023 - Present</p>
+                        <p class="description">Regularly volunteered to help with the dogs, doing everyday tasks such as bathing, trimming nails and walks. Focused on animal welfare and care.</p>
                     </div>
                 </div>
                 <div class="back-btn" data-target="about">
@@ -116,7 +209,33 @@
                 </div>
             </section>
             
-            <!-- Awards Section -->
+            <!-- Publications Section -->
+            <section id="publications" class="section">
+                <h2 class="cyber-glitch">PUBLICATIONS</h2>
+                <div class="terminal-text">
+                    <p>> Retrieving published works...</p>
+                    <p>> Publications loaded</p>
+                </div>
+                <div class="publications-grid">
+                    <div class="publication-item">
+                        <h3><a href="https://www.geo.tv/latest/578908-expulsion-of-afghan-refugees-from-pakistan-sparks-human-rights-concern" target="_blank">Expulsion of Afghan refugees from Pakistan sparks human rights concern</a></h3>
+                        <p class="publisher">Geo News · Dec 10, 2024</p>
+                    </div>
+                    <div class="publication-item">
+                        <h3><a href="https://medium.com/@zayn.aslam/writing-carbon-credits-effect-on-the-economy-and-environment-1f85429757ac" target="_blank">Carbon Credits: Effect On The Economy and Environment</a></h3>
+                        <p class="publisher">Medium · Feb 15, 2024</p>
+                    </div>
+                    <div class="publication-item">
+                        <h3><a href="https://pakistandebtclock.com/" target="_blank">Pakistan National Debt Clock Website</a></h3>
+                        <p class="publisher">Personal Project</p>
+                    </div>
+                </div>
+                <div class="back-btn" data-target="about">
+                    <i class="fas fa-arrow-left"></i> BACK TO MAIN
+                </div>
+            </section>
+            
+            <!-- Awards Section (Math Category) -->
             <section id="awards" class="section">
                 <h2 class="cyber-glitch">AWARDS & HONOURS</h2>
                 <div class="terminal-text">
@@ -124,20 +243,18 @@
                     <p>> Recognition records retrieved</p>
                 </div>
                 <div class="awards-categories">
-                    <div class="category" id="informatics">
-                        <h3>INFORMATICS</h3>
+                    <div class="category" id="economics">
+                        <h3>ECONOMICS</h3>
                         <div class="awards-list">
                             <div class="award-item">
-                                <h4>NATIONAL CODING CHAMPION</h4>
-                                <p class="year">2021</p>
+                                <h4>INTERNATIONAL ECONOMICS OLYMPIAD</h4>
+                                <p class="year">July 2024</p>
+                                <p class="description">Bronze Medal</p>
                             </div>
                             <div class="award-item">
-                                <h4>HACKATHON FIRST PRIZE</h4>
-                                <p class="year">2020</p>
-                            </div>
-                            <div class="award-item">
-                                <h4>BEST INNOVATION AWARD</h4>
-                                <p class="year">2019</p>
+                                <h4>PAKISTAN NATIONAL ECONOMICS TOURNAMENT</h4>
+                                <p class="year">May 2024</p>
+                                <p class="description">Gold Medal</p>
                             </div>
                         </div>
                     </div>
@@ -145,37 +262,54 @@
                         <h3>MATHEMATICS</h3>
                         <div class="awards-list">
                             <div class="award-item">
-                                <h4>INTERNATIONAL MATH OLYMPIAD GOLD</h4>
-                                <p class="year">2022</p>
+                                <h4>STANFORD MATH TOURNAMENT</h4>
+                                <p class="year">April 2024</p>
+                                <p class="description">Honourable Mention (Calculus) and Distinguished Honourable Mention (Algebra)</p>
                             </div>
                             <div class="award-item">
-                                <h4>YOUNG MATHEMATICIAN OF THE YEAR</h4>
-                                <p class="year">2021</p>
+                                <h4>UNIVERSITY OF HOUSTON MATH CONTEST</h4>
+                                <p class="year">February 2025</p>
+                                <p class="description">Awarded $300 for placing 1st in Physics, 1st in Calculus</p>
                             </div>
                             <div class="award-item">
-                                <h4>ADVANCED TOPOLOGY RESEARCH AWARD</h4>
-                                <p class="year">2020</p>
+                                <h4>INTERNATIONAL TOURNAMENT FOR YOUNG MATHEMATICIANS</h4>
+                                <p class="year">November 2023</p>
+                                <p class="description">Honourable Mention</p>
                             </div>
                             <div class="award-item">
-                                <h4>QUANTUM COMPUTING EXCELLENCE</h4>
-                                <p class="year">2019</p>
+                                <h4>PURPLE COMET MATH MEET</h4>
+                                <p class="year">April 2025</p>
+                                <p class="description">1st Place in Pakistan</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>PAKISTAN MATHEMATICAL MODELING CONTEST</h4>
+                                <p class="year">April 2024</p>
+                                <p class="description">Winner & chosen for Team Pakistan - Awarded successful in international round</p>
                             </div>
                         </div>
                     </div>
-                    <div class="category" id="economics">
-                        <h3>ECONOMICS</h3>
+                    <div class="category" id="informatics">
+                        <h3>INFORMATICS</h3>
                         <div class="awards-list">
                             <div class="award-item">
-                                <h4>ECONOMETRICS RESEARCH PRIZE</h4>
-                                <p class="year">2021</p>
+                                <h4>BRAIN OF AITCHISON</h4>
+                                <p class="year">January 2025</p>
+                                <p class="description">Awarded for being 1 of 1000+</p>
                             </div>
                             <div class="award-item">
-                                <h4>MARKET ANALYSIS COMPETITION</h4>
-                                <p class="year">2020</p>
+                                <h4>CANADIAN COMPUTING COMPETITION</h4>
+                                <p class="year">January 2024</p>
+                                <p class="description">Distinction - University of Waterloo</p>
                             </div>
                             <div class="award-item">
-                                <h4>ECONOMIC THEORY JOURNAL PUBLICATION</h4>
-                                <p class="year">2019</p>
+                                <h4>CODING AT CARIBOU CONTESTS</h4>
+                                <p class="year">2024</p>
+                                <p class="description">1st in the world</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>INTERNATIONAL BEBRAS INFORMATICS CONTEST</h4>
+                                <p class="year">2023</p>
+                                <p class="description">4th in Pakistan</p>
                             </div>
                         </div>
                     </div>
