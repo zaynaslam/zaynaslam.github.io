@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Futuristic Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="cyber-panel main-panel" id="main-panel">
+            <div class="header">
+                <div class="logo">
+                    <div class="hexagon"></div>
+                    <span>PORTFOLIO_V1.0</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li class="nav-item" data-target="about">ABOUT</li>
+                        <li class="nav-item" data-target="education">EDUCATION</li>
+                        <li class="nav-item" data-target="experience">EXPERIENCE</li>
+                        <li class="nav-item" data-target="awards">AWARDS</li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- About Section -->
+            <section id="about" class="section active-section">
+                <h1 class="cyber-glitch">JOHN DOE</h1>
+                <div class="terminal-text">
+                    <p>> Initializing profile data...</p>
+                    <p>> Access granted to personal information</p>
+                    <p>> I'm a futuristic tech enthusiast passionate about innovation</p>
+                    <p>> Specializing in mathematics, economics, and informatics</p>
+                    <p>> Welcome to my digital portfolio</p>
+                    <p class="blinking-cursor">_</p>
+                </div>
+                <div class="pathways-container">
+                    <div class="pathway" data-target="education">
+                        <div class="node"></div>
+                        <span>EDUCATION</span>
+                    </div>
+                    <div class="pathway" data-target="experience">
+                        <div class="node"></div>
+                        <span>VOLUNTEER SERVICE & EXPERIENCE</span>
+                    </div>
+                    <div class="pathway" data-target="awards">
+                        <div class="node"></div>
+                        <span>AWARDS & HONOURS</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Education Section -->
+            <section id="education" class="section">
+                <h2 class="cyber-glitch">EDUCATION</h2>
+                <div class="terminal-text">
+                    <p>> Loading academic credentials...</p>
+                    <p>> Data retrieved successfully</p>
+                </div>
+                <div class="edu-timeline">
+                    <div class="edu-item">
+                        <h3>CYBERTECH UNIVERSITY</h3>
+                        <p class="degree">MSc. Advanced Computing Sciences</p>
+                        <p class="year">2020-2022</p>
+                        <p class="description">Specialized in algorithmic theory and quantum computing applications.</p>
+                    </div>
+                    <div class="edu-item">
+                        <h3>DIGITAL INNOVATIONS COLLEGE</h3>
+                        <p class="degree">BSc. Applied Mathematics & Computer Science</p>
+                        <p class="year">2016-2020</p>
+                        <p class="description">Double major with focus on computational mathematics and software development.</p>
+                    </div>
+                </div>
+                <div class="back-btn" data-target="about">
+                    <i class="fas fa-arrow-left"></i> BACK TO MAIN
+                </div>
+            </section>
+            
+            <!-- Experience Section -->
+            <section id="experience" class="section">
+                <h2 class="cyber-glitch">VOLUNTEER SERVICE & EXPERIENCE</h2>
+                <div class="terminal-text">
+                    <p>> Scanning professional records...</p>
+                    <p>> Experience database unlocked</p>
+                </div>
+                <div class="exp-grid">
+                    <div class="exp-item">
+                        <div class="exp-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>COMMUNITY TECH MENTOR</h3>
+                        <p class="year">2021-Present</p>
+                        <p class="description">Volunteer teaching coding skills to underprivileged youth.</p>
+                    </div>
+                    <div class="exp-item">
+                        <div class="exp-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>ENVIRONMENTAL DATA ANALYSIS</h3>
+                        <p class="year">2019-2021</p>
+                        <p class="description">Volunteer work analyzing climate data for local conservation group.</p>
+                    </div>
+                    <div class="exp-item">
+                        <div class="exp-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>ROBOTICS TEAM LEAD</h3>
+                        <p class="year">2018-2020</p>
+                        <p class="description">Led student volunteer robotics team in national competitions.</p>
+                    </div>
+                </div>
+                <div class="back-btn" data-target="about">
+                    <i class="fas fa-arrow-left"></i> BACK TO MAIN
+                </div>
+            </section>
+            
+            <!-- Awards Section -->
+            <section id="awards" class="section">
+                <h2 class="cyber-glitch">AWARDS & HONOURS</h2>
+                <div class="terminal-text">
+                    <p>> Accessing achievements database...</p>
+                    <p>> Recognition records retrieved</p>
+                </div>
+                <div class="awards-categories">
+                    <div class="category" id="informatics">
+                        <h3>INFORMATICS</h3>
+                        <div class="awards-list">
+                            <div class="award-item">
+                                <h4>NATIONAL CODING CHAMPION</h4>
+                                <p class="year">2021</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>HACKATHON FIRST PRIZE</h4>
+                                <p class="year">2020</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>BEST INNOVATION AWARD</h4>
+                                <p class="year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category featured" id="mathematics">
+                        <h3>MATHEMATICS</h3>
+                        <div class="awards-list">
+                            <div class="award-item">
+                                <h4>INTERNATIONAL MATH OLYMPIAD GOLD</h4>
+                                <p class="year">2022</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>YOUNG MATHEMATICIAN OF THE YEAR</h4>
+                                <p class="year">2021</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>ADVANCED TOPOLOGY RESEARCH AWARD</h4>
+                                <p class="year">2020</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>QUANTUM COMPUTING EXCELLENCE</h4>
+                                <p class="year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category" id="economics">
+                        <h3>ECONOMICS</h3>
+                        <div class="awards-list">
+                            <div class="award-item">
+                                <h4>ECONOMETRICS RESEARCH PRIZE</h4>
+                                <p class="year">2021</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>MARKET ANALYSIS COMPETITION</h4>
+                                <p class="year">2020</p>
+                            </div>
+                            <div class="award-item">
+                                <h4>ECONOMIC THEORY JOURNAL PUBLICATION</h4>
+                                <p class="year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back-btn" data-target="about">
+                    <i class="fas fa-arrow-left"></i> BACK TO MAIN
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
