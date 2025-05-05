@@ -609,3 +609,452 @@ pubParticleStyles.textContent = `
 `;
 document.head.appendChild(pubParticleStyles);
 
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Create particle background
+  createParticleBackground();
+  
+  // Move pathway icons to center of nodes
+  moveIconsToNodes();
+  
+  // Add school logos to education section
+  setupSchoolLogos();
+  
+  // Initialize the remaining elements and animations
+  initInteractiveElements();
+});
+
+// Move pathway icons to the center nodes
+function moveIconsToNodes() {
+  const pathways = document.querySelectorAll('.neo-pathway');
+  
+  pathways.forEach(pathway => {
+    const pathIcon = pathway.querySelector('.path-icon i');
+    const node = pathway.querySelector('.node');
+    
+    if (pathIcon && node) {
+      // Create a new element for the icon inside the node
+      const nodeIcon = document.createElement('i');
+      nodeIcon.className = pathIcon.className;
+      node.appendChild(nodeIcon);
+      
+      // Hide the original path-icon
+      const pathIconContainer = pathway.querySelector('.path-icon');
+      if (pathIconContainer) {
+        pathIconContainer.style.display = 'none';
+      }
+    }
+  });
+}
+
+// Set up school logos in education section
+function setupSchoolLogos() {
+  // Create education header with logos if not already present
+  const eduItems = document.querySelectorAll('.edu-item');
+  
+  eduItems.forEach((item, index) => {
+    const title = item.querySelector('h3');
+    if (!item.querySelector('.edu-header') && title) {
+      // Get the original content
+      const content = item.innerHTML;
+      
+      // Clear the item
+      item.innerHTML = '';
+      
+      // Create header with logo
+      const header = document.createElement('div');
+      header.className = 'edu-header';
+      
+      // Create logo container
+      const logo = document.createElement('div');
+      logo.className = 'school-logo';
+      
+      // Add the appropriate logo based on index
+      const img = document.createElement('img');
+      if (index === 0) { // CMU
+        img.src = 'cmu-logo-transparent.png';
+        logo.classList.add('cmu');
+      } else if (index === 1) { // Aitchison
+        img.src = 'aitchison-logo-transparent.png';
+        logo.classList.add('aitchison');
+      }
+      logo.appendChild(img);
+      
+      // Create info container
+      const info = document.createElement('div');
+      info.className = 'edu-info';
+      info.innerHTML = content;
+      
+      // Append logo and info to header
+      header.appendChild(logo);
+      header.appendChild(info);
+      
+      // Append header to item
+      item.appendChild(header);
+    }
+  });
+  
+  // Add animation to logos
+  const logos = document.querySelectorAll('.school-logo');
+  logos.forEach(logo => {
+    logo.style.animation = 'pulse 3s infinite';
+  });
+}
+
+// Initialize interactive elements
+function initInteractiveElements() {
+  // Add hover effects to education items
+  const eduItems = document.querySelectorAll('.edu-item');
+  eduItems.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const logo = item.querySelector('.school-logo');
+      if (logo) {
+        logo.style.boxShadow = '0 0 20px var(--light-green)';
+        logo.style.borderColor = 'var(--highlight-green)';
+      }
+    });
+    
+    item.addEventListener('mouseleave', () => {
+      const logo = item.querySelector('.school-logo');
+      if (logo) {
+        logo.style.boxShadow = '';
+        logo.style.borderColor = '';
+      }
+    });
+  });
+  
+  // Add node pulse effect on hover
+  const nodes = document.querySelectorAll('.node');
+  nodes.forEach(node => {
+    node.addEventListener('mouseenter', () => {
+      const icon = node.querySelector('i');
+      if (icon) {
+        icon.style.transform = 'scale(1.3)';
+        icon.style.color = 'var(--highlight-green)';
+      }
+    });
+    
+    node.addEventListener('mouseleave', () => {
+      const icon = node.querySelector('i');
+      if (icon) {
+        icon.style.transform = '';
+        icon.style.color = '';
+      }
+    });
+  });
+  
+  // Add animation to publication links
+  const pubLinks = document.querySelectorAll('.publication-item h3 a');
+  pubLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      // Create glowing dot effect
+      for (let i = 0; i < 3; i++) {
+        createGlowingDot(link);
+      }
+    });
+  });
+}
+
+// Create glowing dot effect for links
+function createGlowingDot(element) {
+  const dot = document.createElement('div');
+  dot.className = 'glow-dot';
+  
+  const rect = element.getBoundingClientRect();
+  const parentRect = element.offsetParent.getBoundingClientRect();
+  
+  // Position dot relative to link
+  dot.style.left = `${Math.random() * rect.width + (rect.left - parentRect.left)}px`;
+  dot.style.top = `${Math.random() * rect.height + (rect.top - parentRect.top)}px`;
+  
+  // Add styles
+  dot.style.position = 'absolute';
+  dot.style.width = '4px';
+  dot.style.height = '4px';
+  dot.style.borderRadius = '50%';
+  dot.style.backgroundColor = 'var(--light-green)';
+  dot.style.boxShadow = '0 0 8px var(--light-green)';
+  dot.style.zIndex = '2';
+  dot.style.pointerEvents = 'none';
+  
+  // Add animation
+  dot.style.animation = `glow-float ${Math.random() * 1 + 1}s forwards ease-out`;
+  
+  // Add to parent
+  element.parentNode.style.position = 'relative';
+  element.parentNode.appendChild(dot);
+  
+  // Remove after animation
+  setTimeout(() => {
+    if (dot.parentNode) {
+      dot.parentNode.removeChild(dot);
+    }
+  }, 2000);
+}
+
+// Add glow dot animation
+const glowDotStyle = document.createElement('style');
+glowDotStyle.textContent = `
+  @keyframes glow-float {
+    0% { 
+      opacity: 0.8;
+      transform: translate(0, 0); 
+    }
+    100% { 
+      opacity: 0;
+      transform: translate(${Math.random() * 40 - 20}px, ${Math.random() * -30 - 10}px); 
+    }
+  }
+`;
+document.head.appendChild(glowDotStyle);
+
+// Create image error handler to fallback if logos don't load
+document.addEventListener('DOMContentLoaded', () => {
+  const logoImages = document.querySelectorAll('.school-logo img');
+  logoImages.forEach(img => {
+    img.addEventListener('error', () => {
+      // If image fails to load, replace with text
+      const parent = img.parentNode;
+      const schoolName = parent.classList.contains('cmu') ? 'CMU' : 'AC';
+      
+      parent.innerHTML = `<span style="font-size: 18px; color: var(--light-green);">${schoolName}</span>`;
+    });
+  });
+});
+
+// Enhanced interactive name effect with continuous animation
+document.addEventListener('DOMContentLoaded', () => {
+  const nameElement = document.querySelector('.interactive-glitch');
+  
+  if (nameElement) {
+    // Set data-text attribute for the glow effect
+    nameElement.setAttribute('data-text', nameElement.textContent);
+    
+    // Create floating letter effect (runs automatically)
+    createFloatingLetterEffect(nameElement);
+    
+    // Add continuous particle effect
+    setInterval(() => {
+      createNameParticles(nameElement);
+    }, 800);
+    
+    // Click effect (separate from continuous animation)
+    nameElement.addEventListener('click', () => {
+      // Create strong pulse wave
+      createStrongPulseEffect(nameElement);
+      
+      // Create intense particle burst
+      createIntenseParticleBurst(nameElement);
+      
+      // Add temporary intense glow
+      nameElement.style.textShadow = '0 0 25px var(--light-green), 0 0 40px var(--light-green)';
+      
+      // Reset shadow after animation
+      setTimeout(() => {
+        nameElement.style.textShadow = '';
+      }, 800);
+    });
+  }
+  
+  // Add Contact Me link
+  addContactLink();
+});
+
+// Create floating letter effect for automatic animation with space between names
+function createFloatingLetterEffect(element) {
+  // Get the text content and ensure proper spacing
+  const text = "ZAYN ASLAM"; // Ensuring space between names
+  
+  // Clear the element
+  element.textContent = '';
+  element.style.position = 'relative'; // Required for mouse interaction
+  
+  // Create spans for each letter with independent animation
+  for (let i = 0; i < text.length; i++) {
+    const letter = document.createElement('span');
+    letter.textContent = text[i];
+    letter.style.display = 'inline-block';
+    
+    if (text[i] !== ' ') { // Don't animate space
+      letter.style.animation = `float-letter ${1 + Math.random() * 2}s ease-in-out infinite`;
+      letter.style.animationDelay = `${Math.random() * 2}s`;
+      letter.classList.add('interactive-letter');
+      
+      // Store original position for mouse interaction
+      letter.dataset.originalX = 0;
+      letter.dataset.originalY = 0;
+    } else {
+      letter.style.width = '0.5em'; // Add appropriate space width
+    }
+    
+    // Add to the name element
+    element.appendChild(letter);
+  }
+  
+  // Add mouse movement listener to enable letter repelling
+  element.addEventListener('mousemove', handleMouseRepel);
+  element.addEventListener('mouseleave', resetLetterPositions);
+}
+
+// Function to handle mouse repel effect
+function handleMouseRepel(e) {
+  const container = e.currentTarget;
+  const letters = container.querySelectorAll('.interactive-letter');
+  const rect = container.getBoundingClientRect();
+  
+  // Get mouse position relative to container
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+  
+  letters.forEach(letter => {
+    const letterRect = letter.getBoundingClientRect();
+    const letterCenterX = letterRect.left - rect.left + letterRect.width / 2;
+    const letterCenterY = letterRect.top - rect.top + letterRect.height / 2;
+    
+    // Calculate distance between mouse and letter center
+    const distanceX = mouseX - letterCenterX;
+    const distanceY = mouseY - letterCenterY;
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+    // Repel force inversely proportional to distance (with a max range)
+    const maxRange = 100;
+    const repelStrength = 30;
+    
+    if (distance < maxRange) {
+      const force = repelStrength * (1 - distance / maxRange);
+      const angleX = -distanceX / distance;
+      const angleY = -distanceY / distance;
+      
+      // Apply transformation
+      letter.style.transform = `translate(${force * angleX}px, ${force * angleY}px)`;
+      letter.style.transition = 'transform 0.1s ease-out';
+    } else {
+      // Outside range, reset position with transition
+      letter.style.transform = '';
+      letter.style.transition = 'transform 0.5s ease-out';
+    }
+  });
+}
+
+// Reset letter positions when mouse leaves
+function resetLetterPositions(e) {
+  const letters = e.currentTarget.querySelectorAll('.interactive-letter');
+  
+  letters.forEach(letter => {
+    letter.style.transform = '';
+    letter.style.transition = 'transform 0.5s ease-out';
+  });
+}
+
+// Add styles for interactive letters
+const letterInteractionStyles = document.createElement('style');
+letterInteractionStyles.textContent = `
+  .interactive-letter {
+    position: relative;
+    display: inline-block;
+    transition: transform 0.5s ease-out;
+    cursor: default;
+  }
+  
+  .interactive-glitch {
+    white-space: nowrap;
+    padding: 10px;
+  }
+`;
+document.head.appendChild(letterInteractionStyles);
+
+// Enhanced Contact section with interactive elements
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Add animated background effect to contact section
+  const contactSection = document.querySelector('#contact');
+  if (contactSection) {
+    for (let i = 0; i < 20; i++) {
+      createParticle(contactSection);
+    }
+    
+    // Subtle zoom and fade in for the contact section
+    contactSection.style.opacity = '0';
+    contactSection.style.transform = 'scale(0.98)';
+    
+    setTimeout(() => {
+      contactSection.style.transition = 'opacity 1s ease, transform 1s ease';
+      contactSection.style.opacity = '1';
+      contactSection.style.transform = 'scale(1)';
+    }, 300);
+  }
+  
+  // Interactive form inputs
+  const formInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+  formInputs.forEach(input => {
+    input.addEventListener('focus', () => {
+      input.parentNode.classList.add('active');
+    });
+    
+    input.addEventListener('blur', () => {
+      if (!input.value) {
+        input.parentNode.classList.remove('active');
+      }
+    });
+  });
+  
+  // Add glowing effect to social icons on hover
+  const socialIcons = document.querySelectorAll('.social-link i');
+  socialIcons.forEach(icon => {
+    icon.addEventListener('mouseenter', () => {
+      icon.style.transform = 'scale(1.2)';
+      icon.style.color = 'var(--light-green)';
+      icon.style.textShadow = '0 0 10px var(--light-green)';
+    });
+    
+    icon.addEventListener('mouseleave', () => {
+      icon.style.transform = '';
+      icon.style.color = '';
+      icon.style.textShadow = '';
+    });
+  });
+});
+
+// Enhance CMU logo to fill space better
+document.addEventListener('DOMContentLoaded', () => {
+  const cmuLogo = document.querySelector('.school-logo.cmu img');
+  if (cmuLogo) {
+    // Make the CMU logo fill the space better
+    cmuLogo.style.width = '95%';
+    cmuLogo.style.height = '95%';
+    cmuLogo.style.objectFit = 'contain';
+    cmuLogo.style.padding = '2px';
+    cmuLogo.style.transform = 'scale(1.1)';
+    
+    // Add a subtle glow effect
+    cmuLogo.style.filter = 'brightness(1.05) drop-shadow(0 0 3px rgba(0, 255, 157, 0.4))';
+    
+    // Add a slight zoom on hover
+    cmuLogo.parentElement.addEventListener('mouseenter', () => {
+      cmuLogo.style.transform = 'scale(1.15)';
+      cmuLogo.style.transition = 'transform 0.3s ease';
+    });
+    
+    cmuLogo.parentElement.addEventListener('mouseleave', () => {
+      cmuLogo.style.transform = 'scale(1.1)';
+    });
+  }
+});
+
+// Add styles for enhanced logo display
+const logoEnhancementStyles = document.createElement('style');
+logoEnhancementStyles.textContent = `
+  .school-logo.cmu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(15, 77, 50, 0.15);
+    overflow: visible;
+    border-radius: 8px;
+  }
+  
+  .school-logo.cmu img {
+    transition: all 0.3s ease;
+  }
+`;
+document.head.appendChild(logoEnhancementStyles);
